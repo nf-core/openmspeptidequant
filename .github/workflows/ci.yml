@@ -23,7 +23,7 @@ jobs:
     strategy:
       matrix:
         # Nextflow versions: check pipeline minimum and current latest
-        nxf_ver: ['20.04.0', '']
+        nxf_ver: ['21.04.0', '']
     steps:
       - name: Check out pipeline code
         uses: actions/checkout@v2
@@ -37,13 +37,13 @@ jobs:
 
       - name: Build new docker image
         if: env.MATCHED_FILES
-        run: docker build --no-cache . -t nfcore/mhcquant:1.6.1
+        run: docker build --no-cache . -t nfcore/mhcquant:2.0.0
 
       - name: Pull docker image
         if: ${{ !env.MATCHED_FILES }}
         run: |
           docker pull nfcore/mhcquant:dev
-          docker tag nfcore/mhcquant:dev nfcore/mhcquant:1.6.1
+          docker tag nfcore/mhcquant:dev nfcore/mhcquant:2.0.0
 
       - name: Install Nextflow
         env:
